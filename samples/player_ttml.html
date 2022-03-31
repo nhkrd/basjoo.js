@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Dash Player Sample</title>
+    <meta name="description" content="" />
+    <meta
+      name="viewport"
+      content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes"
+    />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="css/player.css" />
+  </head>
+
+  <body>
+    <div id="player">
+      <video id="videoplayer" width="1920" height="1080"></video>
+    </div>
+
+    <div id="TVSpec_ContentInfo">
+      <span>TV Spec</span><br />
+      <span id="MSE_ver">MSE</span><br />
+      <span id="EME_ver">EME</span><br /><br />
+      <span>Content Info</span><br />
+      <span id="bw_video">Video:</span><br />
+      <span id="bw_audio">Audio:</span><br />
+      <span id="codec_video">V-Codec:</span><br />
+      <span id="codec_audio">A-Codec:</span><br />
+      <span id="keysystem">KeySystem:</span><br />
+      <span id="keysystem_kid_v">KID(V):</span><br />
+      <span id="keysystem_kid_a">KID(A):</span><br /><br />
+      <span>Player Info</span><br />
+      <span id="player_version">Ver:</span>
+    </div>
+
+    <div id="buffer_info">
+      <div id="buffer_time">
+        <div id="ctime"></div>
+        <div id="vlog"></div>
+        <div id="alog"></div>
+      </div>
+      <div id="appendVlog"></div>
+      <div id="appendVlogQ"></div>
+      <div id="appendAlog"></div>
+      <div id="appendAlogQ"></div>
+      <div style="clear: both"></div>
+      <div id="dlog" class="status"></div>
+    </div>
+
+    <div id="logarea" class="status"><div id="log"></div></div>
+
+    <div id="ctrl_bar">
+      <form name="control">
+        <button
+          type="button"
+          id="opt_detail"
+          class="opt_button focusable"
+	  onclick="pCtrl.opt_menu_onoff();"
+        ></button>
+        <button
+          type="button"
+          id="cc_control_button"
+          class="cc_button focusable"
+          onclick="controlCC('onoff');"
+        ></button>
+        <button
+          type="button"
+          id="cc_lang_button"
+          class="cc_button focusable"
+          onclick="controlCC('lang');"
+        ></button>
+
+        <div class="control_button_title">
+          <div id="slider_dur_time">00:00</div>
+          <div id="slider_bar_time">00:00</div>
+          <div id="slider_bar_base"><div id="slider_bar_inner"></div></div>
+        </div>
+        <div class="control_button_area">
+          <div class="control_buttons">
+            <button
+              type="button"
+              id="playback_period"
+              class="control_button focusable"
+	      onclick="pCtrl.Cueing_PrevPeriod();"
+            ></button>
+            <button
+              type="button"
+              id="playback_30"
+              class="control_button focusable"
+	      onclick="pCtrl.Play_Backword(-30);"
+            ></button>
+            <button
+              type="button"
+              id="playback_3"
+              class="control_button focusable"
+	      onclick="pCtrl.Play_Backword(-3);"
+            ></button>
+            <button
+              type="button"
+              id="pause_play"
+              class="control_button focusable"
+	      onclick="pCtrl.Play_pause();"
+            ></button>
+            <button
+              type="button"
+              id="play_stop"
+              class="control_button focusable"
+	      onclick="pCtrl.Play_stop();"
+            ></button>
+            <button
+              type="button"
+              id="playfwd_3"
+              class="control_button focusable"
+	      onclick="pCtrl.Play_Forword(3);"
+            ></button>
+            <button
+              type="button"
+              id="playfwd_30"
+              class="control_button focusable"
+	      onclick="pCtrl.Play_Forword(30);"
+            ></button>
+            <button
+              type="button"
+              id="playfwd_period"
+              class="control_button focusable"
+	      onclick="pCtrl.Cueing_NextPeriod();"
+            ></button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div id="setting_bar">
+      <form name="setttings">
+        <div class="setting_button_title">ABR制御</div>
+        <div class="control_button_area">
+          <button
+            type="button"
+            id="btn_abr_of"
+            class="control_button_set focusable"
+	    onclick="pCtrl.ABR_ON(false);"
+          ></button>
+          <button
+            type="button"
+            id="btn_abr_on"
+            class="control_button_set focusable"
+	    onclick="pCtrl.ABR_ON(true);"
+          ></button>
+        </div>
+        <div class="setting_button_title">映像レート</div>
+        <div class="control_button_area">
+          <button
+            type="button"
+            id="btn_video_down"
+            class="control_button_set focusable"
+	     onclick="pCtrl.VideoAudio_Down('video',true);"
+          ></button>
+          <button
+            type="button"
+            id="btn_video_up"
+            class="control_button_set focusable"
+	     onclick="pCtrl.VideoAudio_Down('video',false);"
+          ></button>
+        </div>
+        <div class="setting_button_title">音声レート</div>
+        <div class="control_button_area">
+          <button
+            type="button"
+            id="btn_audio_down"
+            class="control_button_set focusable"
+	    onclick="pCtrl.VideoAudio_Down('audio',true);"
+          ></button>
+          <button
+            type="button"
+            id="btn_audio_up"
+            class="control_button_set focusable"
+	    onclick="pCtrl.VideoAudio_Down('audio',false);"
+          ></button>
+        </div>
+        <div style="clear: both"></div>
+        <div class="setting_button_title">表示サイズ</div>
+        <div class="control_button_area">
+          <button
+            type="button"
+            id="size_chg_960_540"
+            class="size_chg control_button2 focusable"
+	    onclick="pCtrl.pView.VideoSize_Change(this, 960, 540);"
+          ></button>
+          <button
+            type="button"
+            id="size_chg_1440_810"
+            class="size_chg control_button2 focusable"
+	    onclick="pCtrl.pView.VideoSize_Change(this, 1440, 810);"
+          ></button>
+          <button
+            type="button"
+            id="size_chg_1600_900"
+            class="size_chg control_button2 focusable"
+	    onclick="pCtrl.pView.VideoSize_Change(this, 1600, 900);"
+          ></button>
+          <button
+            type="button"
+            id="size_chg_1920_1080"
+            class="size_chg control_button2 focusable"
+	    onclick="pCtrl.pView.VideoSize_Change(this, 1920, 1080);"
+          ></button>
+        </div>
+      </form>
+    </div>
+    <script src="../dist/basjoo.min.js"></script> <!-- playerライブラリ -->
+    <script src="js/hcinit.js"></script>
+    <script src="js/focusnavi.js"></script>
+    <script src="js/player_loghandler.js"></script>
+    <script src="js/player_playerview.js"></script>
+    <script src="js/player_player.js"></script>
+    <script src="js/player_main.js"></script>   <!-- 実装サンプル（用途に応じてカスタマイズ） -->
+    <script src="js/ttml.js"></script>
+  </body>
+</html>

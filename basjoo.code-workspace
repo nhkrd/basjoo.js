@@ -1,0 +1,115 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "extensions.showRecommendationsOnlyOnDemand": false,
+    "extensions.ignoreRecommendations": false,
+    "javascript.format.enable": false,
+    "gitmoji.onlyUseAdditionalEmojis": true,
+    "gitmoji.additionalEmojis": [
+      {
+        "emoji": "🐛",
+        "code": ":bug:",
+        "description": "バグ修正",
+        "description_zh_cn": ""
+      },
+      {
+        "emoji": "👍",
+        "code": ":+1:",
+        "description": "機能改善",
+        "description_zh_cn": ""
+      },
+      {
+        "emoji": "✨",
+        "code": ":sparkles:",
+        "description": "部分的な機能追加",
+        "description_zh_cn": ""
+      },
+      {
+        "emoji": "🎉",
+        "code": ":tada:",
+        "description": "盛大に祝うべき大きな機能追加",
+        "description_zh_cn": ""
+      },
+      {
+        "emoji": "💥",
+        "code": ":collision:",
+        "description": "仕様・機能変更",
+        "description_zh_cn": ""
+      },
+      {
+        "emoji": "♻",
+        "code": ":recycle:",
+        "description": "リファクタリング",
+        "description_zh_cn": ""
+      },
+      {
+        "emoji": "🚿",
+        "code": ":shower:",
+        "description": "不要な機能の削除",
+        "description_zh_cn": ""
+      },
+      {
+        "emoji": "💚",
+        "code": ":green_heart:",
+        "description": "テストやCIの修正・改善",
+        "description_zh_cn": ""
+      },
+      {
+        "emoji": "👕",
+        "code": ":shirt:",
+        "description": "Lintエラーの修正やコードスタイルの修正",
+        "description_zh_cn": ""
+      },
+      {
+        "emoji": "🚀",
+        "code": ":rocket:",
+        "description": "パフォーマンス改善",
+        "description_zh_cn": ""
+      },
+      {
+        "emoji": "📖",
+        "code": ":book:",
+        "description": "ドキュメント修正",
+        "description_zh_cn": ""
+      },
+      {
+        "emoji": "🔨",
+        "code": ":hammer:",
+        "description": "開発環境の修正",
+        "description_zh_cn": ""
+      },
+      {
+        "emoji": "🆙",
+        "code": ":up:",
+        "description": "依存パッケージなどのアップデート",
+        "description_zh_cn": ""
+      },
+      {
+        "emoji": "🔒",
+        "code": ":lock:",
+        "description": "新機能の公開範囲の制限",
+        "description_zh_cn": ""
+      },
+      {
+        "emoji": "👮",
+        "code": ":cop:",
+        "description": "セキュリティ関連の改善",
+        "description_zh_cn": ""
+      },
+      {
+        "emoji": "🚧",
+        "code": ":construction:",
+        "description": "WIP (Work In Progress)",
+        "description_zh_cn": ""
+      }
+    ],
+    "files.exclude": {
+      "package-lock.json": true,
+      "yarn.lock": true
+    }
+  }
+}

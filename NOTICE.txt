@@ -1,0 +1,5 @@
+日本国内での使用を想定しています。
+THIS SOFTWARE IS INTENDED FOR USE IN JAPAN.
+
+このソフトウェアは、日本放送協会放送技術研究所の研究成果として公開されています。
+THIS SOFTWARE IS PUBLISHED AS A RESEARCH ACHIEVEMENT OF NHK STRL.

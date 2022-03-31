@@ -1,0 +1,7 @@
+node_modules
+jsdoc
+package-lock.json
+coverage
+
+src/js/basjoo/package*.*
+src/js/basjoo/.eslint*

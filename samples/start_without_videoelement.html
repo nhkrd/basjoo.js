@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <style>
+      body {
+        width: 1920px;
+        height: 1080px;
+        margin: 0px;
+        padding: 0px;
+        letter-spacing: 0;
+        background-color: #000000;
+        overflow: hidden;
+      }
+    </style>
+
+    <script src="../dist/basjoo.min.js"></script>
+    <script>
+      var player;
+      var params = {};
+      var video = document.createElement('video');
+
+      window.addEventListener('load', function () {
+        if (1 < window.location.search.length) {
+          var query = window.location.search.substring(1);
+          var parameters = query.split('&');
+
+          for (var i = 0; i < parameters.length; i++) {
+            var element = parameters[i].split('=');
+            var paramName = decodeURIComponent(element[0]);
+            var paramValue = decodeURIComponent(element[1]);
+            params[paramName] = paramValue;
+          }
+        }
+
+        if (params['url']) {
+          player = new DashTVPlayer(null); //video要素なし状態（null）で起動
+          var src = {},
+            setupParams = {};
+
+          setupParams = {
+            DEFAULT_MIN_BUFFER_TIME: 2,
+            //FORCE_DEFAULT_MBT: true,
+            MSE_APPEND_ENABLE_THRESHOLD: 5,
+            BUFFER_PREFETCH_THRESHOLD: 15,
+            LOADING_REQUEST_THRESHOLD: 2,
+            DEFAULT_MANIFEST_REFRESH_DELAY: 10,
+            //DEFAULT_PRESENTATION_DELAY: 10,
+            //ADJUST_TIMESTAMP_OFFSET : false,
+            DEFAULT_PRESENTATION_DELAY: 10,
+            //START_FROM_MPDTOP_FORLIVE: true,
+            //SET_1STSEG_TIME_ZERO: false,
+            //SET_1STSEG_TIME_ZERO: false,
+            //MIN_SEGSIZE_FORBASE: 2,
+            EXTRACT_ALL_IDR_IN_MOOF: true,
+            LISTEN_TO_CANPLAY_AFTER_SEEK: true,
+            BDAT_INSERT_MODE: false,
+          };
+
+          src['type'] = 'url';
+          src['source'] = params['url'];
+          src['params'] = setupParams;
+
+          if (params['t']) {
+            var startEnd = params['t'].split(','),
+              s = 0,
+              e = NaN;
+            if (startEnd.length == 1) {
+              s = parseFloat(startEnd[0]);
+            } else if (startEnd.length == 2) {
+              s = parseFloat(startEnd[0]);
+              e = parseFloat(startEnd[1]);
+            }
+          }
+
+          player.attachSource(src, s, e); //この時点でセグメントのダウンロードが始まる
+
+          var listener = function (evt) {
+            //evt.data バッファ状況
+            //(0: 初期化中，1: minBufferTime未満，2: minBufferTime以上，3: BUFFER_PREFETCH_THRESHOLD以上)
+
+            if (evt.data >= 2) {
+              player.removeEventListener('BUFFER_STATE_CHANGE', listener);
+
+              var div = document.getElementById('player');
+              var tvobj = document.getElementById('tvobj');
+              video.id = 'videoplayer';
+              video.width = 1920;
+              video.height = 1080;
+              div.removeChild(tvobj); //放送objの除去
+              div.appendChild(video); //video要素の追加
+
+              player.attachView(video); //video要素の紐付け、再生開始
+            }
+          };
+          player.addEventListener('BUFFER_STATE_CHANGE', listener); //バッファ状況の変化を監視
+        }
+      });
+    </script>
+  </head>
+  <body style="margin: 0px; padding: 0px">
+    <div id="player">
+      <object
+        id="tvobj"
+        type="video/x-iptvf-broadcast"
+        width="1920"
+        height="1080"
+      ></object>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint",
+    "oderwat.indent-rainbow",
+    "visualstudioexptteam.vscodeintellicode",
+    "eamodio.gitlens",
+    "vtrois.gitmoji-vscode",
+    "mikestead.dotenv",
+    "fabiospampinato.vscode-todo-plus",
+    "wix.vscode-import-cost",
+    "coenraads.bracket-pair-colorizer-2",
+    "orta.vscode-jest",
+    "firsttris.vscode-jest-runner",
+    "pkief.material-icon-theme"
+  ]
+}
